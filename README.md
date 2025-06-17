@@ -32,7 +32,9 @@ _We'll select a specific set of Python tools to deep dive into the world of QA._
 **Backend (API):**
 - Requests
 - pytest
+- pytest coverage
 - pattern: client wrapper
+- tutorial: https://www.youtube.com/watch?v=7dgQRVqF1N0
 
 **Frontend (UI):**
 - Playwright
