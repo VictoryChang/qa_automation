@@ -1,7 +1,8 @@
-from icecream import ic
+import jsonschema
 import requests
 
 from api.todo import ENDPOINT, new_task_payload, create_task, delete_task, get_task, list_tasks, update_task
+from api.todo_schemas import *
 
 
 def test_can_call_endpoint():
@@ -15,12 +16,15 @@ def test_can_create_task():
     payload = new_task_payload()
     create_task_response = create_task(payload)
     assert create_task_response.status_code == 200
-    task_id = create_task_response.json()['task']['task_id']
+    create_task_data = create_task_response.json()
+    jsonschema.validate(create_task_data, post_schema)
+    task_id = create_task_data['task']['task_id']
 
     # get the task and verify content
     get_task_response = get_task(task_id)
     assert get_task_response.status_code == 200
     get_task_data = get_task_response.json()
+    jsonschema.validate(get_task_data, get_schema)
     assert get_task_data['content'] == payload['content']
     assert get_task_data['user_id'] == payload['user_id']
 
@@ -41,6 +45,7 @@ def test_can_update_task():
     }
     update_task_response = update_task(new_payload)
     assert update_task_response.status_code == 200
+    jsonschema.validate(update_task_response.json(), put_schema)
 
     # get the task and verify content
     get_task_response = get_task(task_id)
@@ -62,6 +67,8 @@ def test_can_list_tasks():
     user_id = payload['user_id']
     list_task_response = list_tasks(user_id)
     assert list_task_response.status_code == 200
+    jsonschema.validate(list_task_response.json(), list_schema)
+
     tasks = list_task_response.json()['tasks']
     assert len(tasks) == n
 
@@ -76,6 +83,7 @@ def test_can_delete_task():
     # delete the task
     delete_task_response = delete_task(task_id)
     assert delete_task_response.status_code == 200
+    jsonschema.validate(delete_task_response.json(), delete_schema)
 
     # get the task and verify it does not exist
     get_task_response = get_task(task_id)
