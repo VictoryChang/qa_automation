@@ -15,7 +15,7 @@
 - Add test cases to ci/cd pipeline
 
 ## On-going
-- Add comprehensize coverage (where possible!)
+- Add comprehensive coverage (where possible!)
 - Keep up with QA tools (keep learning!)
 - Identify and prioritize the tests for manual and automated testing
 - Time-box exploratory testing for a specific feature
@@ -39,3 +39,6 @@ _We'll select a specific set of Python tools to deep dive into the world of QA._
 **Frontend (UI):**
 - Playwright
 - pattern: page object model (POM)
+- tutorial: pytest::module: https://www.youtube.com/watch?v=aUKIfkTWG_A
+- tutorial: pytest::class: https://www.youtube.com/watch?v=EstpHIGbFN4
+- tutorial: pytest::parametrization: https://www.youtube.com/watch?v=GS49VGgTLag
